@@ -53,3 +53,16 @@ Good safeguards:
 - Triggering alerts or follow-up jobs when thresholds are crossed. (sending newsroom Slack when new campaign finance filing is published)
 
 Use Actions when the work is repetitive, timestamped, and benefits from a visible audit trail in Git.
+
+# Further resources
+
+* [Go big with GitHub Actions](https://palewi.re/docs/go-big-with-github-actions/)
+* [Official GitHub Quickstart for Actions](https://docs.github.com/en/actions/get-started/quickstart)
+
+## Real world examples
+
+- [TeamTrace/butler_p_immigration_shootings](https://github.com/TeamTrace/butler_p_immigration_shootings): This repo is a scheduler wrapper for a Redivis notebook that updates The Trace's immigration shootings workflow. Its `dataset-butler.yml` action runs on `workflow_dispatch` and a cron schedule (`*/13 * * * *`), sets up Python, and runs `app.py`, which calls Redivis notebook `TheTrace.immigration_shootings:k6j5.updater:5n3r` via API using a secret token. It powers this:  https://datahub.thetrace.org/dataset/federal-immigration-agent-shootings/
+
+- [palewire/old-la-photos](https://github.com/palewire/old-la-photos): This repo is a bot that posts a random Los Angeles Public Library photo to Mastodon. The `mastodon.yaml` workflow runs every three hours, sets up Python and pipenv, runs `make toot`, and uses Mastodon secrets to publish the post. After posting, it writes a timestamp and commits updates back to the repo so each run leaves a visible history. It powers this: https://mastodon.palewi.re/@OldLAPhotos
+
+- [chrislkeller/nm-quantified](https://github.com/chrislkeller/nm-quantified): This repo contains many scheduled newsroom data jobs for New Mexico (for example building permits, drought maps, and crop reports). Each workflow checks out the repo, installs Python/pipenv dependencies, runs one or more acquisition scripts, then calls a local composite `commit` action that does `git add`, `git commit`, and `git push` with credentials from repository secrets. 

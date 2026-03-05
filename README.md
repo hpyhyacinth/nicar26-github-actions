@@ -1,83 +1,90 @@
 # NICAR 2026: GitHub Actions for Data Automation
 
-This repository is a teaching scaffold for a 1-hour NICAR session focused on GitHub Actions automation, not scraper-writing.
+This README is organized as the teaching flow for the workshop.
 
-## Workshop Goal
+## Session Flow
 
-Automate routine data pulls so updates happen while you sleep, with practical newsroom patterns:
+### 1) Understand what GitHub Actions are
 
-- `schedule` runs on a cron
-- `workflow_dispatch` for manual "Run workflow"
-- append-only history files for trend tracking
+Use this basic model:
 
-## What Is Included
+- A workflow file (`.yml`) defines automation.
+- Triggers like `schedule` and `workflow_dispatch` decide when it runs.
+- Jobs and steps run scripts, API calls, and git commits on a hosted runner.
 
-### 1) Main Class Example: StubHub Session 7 Price Workflow
+### 2) Review a real newsroom example (The Trace)
 
-File:
+Use this repo as your first concrete example:
+
+- Repo: [TeamTrace/butler_p_immigration_shootings](https://github.com/TeamTrace/butler_p_immigration_shootings)
+- Workflow: `/.github/workflows/dataset-butler.yml`
+
+Focus on:
+
+- `workflow_dispatch` for manual runs.
+- `schedule` for recurring runs.
+- Python step that calls a Redivis notebook updater via API.
+
+### 3) Fork and clone this repo
+
+1. Fork this repository to your own GitHub account.
+2. Clone your fork to your own computer.
+3. Open your fork on GitHub and confirm the `Actions` tab is available.
+
+### 4) Inspect the first YAML file: ticket prices
+
+Open:
+
 - `.github/workflows/daily-ncaaw-ticket-prices.yml`
 
-What it does:
-- Runs on schedule (Nov-Apr) and manual dispatch
-- Downloads raw StubHub Session 7 event HTML from https://www.stubhub.com/big-ten-women-s-basketball-tournament-indianapolis-tickets-3-8-2026/event/158891615/
-- Runs a Python script to extract low/median/high from embedded event payload
-- Appends one timestamped row to a single history CSV on each run
+Check what this workflow does:
 
-Script:
-- `scripts/analyze_stubhub_big10wbt.py`
+- Pulls StubHub event HTML.
+- Runs `scripts/analyze_stubhub_big10wbt.py`.
+- Appends a timestamped row to `data/stubhub_big10wbt_session7_history.csv`.
+- Commits sanitized classroom-safe HTML to `data/raw_public/`. (removing API keys from the html file)
 
-Outputs:
-- `data/raw_public/stubhub_session7_event_YYYYMMDD.html` (sanitized, student-visible snapshot)
-- `data/stubhub_big10wbt_session7_history.csv`
+### 5) Run `workflow_dispatch` for ticket prices
 
-Note:
-- The workflow downloads raw HTML during the run into `data/raw/` (ignored), then commits a sanitized copy to `data/raw_public/`.
+Steps:
 
-### 2) API Key Example: WNCAAB Odds Workflow
+1. Go to `Actions`.
+2. Select `daily-ncaaw-ticket-prices`.
+3. Click `Run workflow`.
+4. Open logs and review each step.
+5. Confirm output files changed in the repo.
 
-File:
+### 6) Inspect the second YAML file: sports odds
+
+Open:
+
 - `.github/workflows/daily-wncaab-odds.yml`
 
-What it does:
-- Runs every 2 hours (Nov-Apr) and manual dispatch
-- Calls The Odds API in YAML with `markets=h2h` only
-- Writes daily raw JSON snapshot
-- Appends timestamped rows into date-partitioned CSV (`data/wncaab_odds_YYYYMMDD.csv`)
+Check what this workflow does:
 
-Script:
-- `scripts/fetch_wncaab_odds.py` (analysis-only; reads raw JSON and appends CSV rows)
+- Calls The Odds API for WNCAAB moneyline odds.
+- Runs `scripts/fetch_wncaab_odds.py`.
+- Writes raw JSON snapshots and appends CSV rows.
+- Make a change to the frequency of how often it runs.
 
-Outputs:
-- `data/raw/wncaab_odds_YYYYMMDD_HHMMSS.json`
-- `data/wncaab_odds_YYYYMMDD.csv`
+### 7) Set up API key for sports odds
 
-## GitHub.com Setup (One Time)
+1. Get a key from [the-odds-api.com](https://the-odds-api.com/).
+2. In the forked repo, go to `Settings` -> `Secrets and variables` -> `Actions`.
+3. Add a new repository secret named `THE_ODDS_API_KEY`.
+4. Paste only the key value.
 
-1. In your repository, go to `Settings` -> `Actions` -> `General`.
-2. Under `Actions permissions`, allow actions to run (either all actions, or at minimum `actions/checkout` and `actions/setup-python`).
-3. Under `Workflow permissions`, choose `Read and write permissions`.
-4. Save.
+### 8) Run `workflow_dispatch` for sports odds
 
-## The Odds API Secret Setup (GitHub)
+1. Go to `Actions`.
+2. Select `daily-wncaab-odds`.
+3. Click `Run workflow`.
+4. Check logs and confirm new files in `data/`.
 
-1. Sign up for an API key at [the-odds-api.com](https://the-odds-api.com/).
-2. In your GitHub repository, go to `Settings` -> `Secrets and variables` -> `Actions`.
-3. Click `New repository secret`.
-4. Set `Name` to `THE_ODDS_API_KEY`.
-5. Paste only the raw key as the secret value and save.
-6. Do not include `THE_ODDS_API_KEY=` in the value field.
+### 9) Review the one-pager
 
-Current Odds API request in this repo:
-- `sport=basketball_wncaab`
-- `regions=us`
-- `markets=h2h`
-- `oddsFormat=american`
-- `dateFormat=iso`
+Use [WORKSHOP_ONE_PAGER.md](./WORKSHOP_ONE_PAGER.md):
 
-## Repository Layout
-
-- `.github/workflows/` GitHub Actions workflow files
-- `scripts/` small utility scripts used by Actions
-- `data/raw/` raw API/page snapshots
-- `data/raw_public/` sanitized HTML snapshots committed for classroom inspection
-- `data/` append-only or day-partitioned CSV outputs
+- limitations of GitHub Actions
+- use cases that fit Actions
+- more real-world examples
