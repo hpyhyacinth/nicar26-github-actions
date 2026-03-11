@@ -1,1 +1,5 @@
 snapshot_date,snapshot_timestamp,event_id,sport_key,sport_title,commence_time,home_team,away_team,bookmaker_key,bookmaker_title,bookmaker_last_update,market_key,market_last_update,home_price,away_price,draw_price
+20260311,2026-03-11 10:38:28 EDT,8446cf0045bb07663bc3173fd17fceee,basketball_wncaab,WNCAAB,2026-03-11T15:00:00Z,Alabama A&M Bulldogs,Florida A&M Rattlers,betrivers,BetRivers,2026-03-11T14:38:25Z,h2h,2026-03-11T14:38:25Z,-3335,950,
+20260311,2026-03-11 10:38:28 EDT,08ef07760feb43441df1c72f46599327,basketball_wncaab,WNCAAB,2026-03-11T15:00:00Z,Miami (OH) RedHawks,Kent State Golden Flashes,betrivers,BetRivers,2026-03-11T14:38:25Z,h2h,2026-03-11T14:38:25Z,-625,380,
+20260311,2026-03-11 10:38:28 EDT,9023fc60b89f5b630cdb6f8540869ab7,basketball_wncaab,WNCAAB,2026-03-11T15:30:00Z,McNeese Cowgirls,UT Rio Grande Valley Vaqueros,betrivers,BetRivers,2026-03-11T14:38:25Z,h2h,2026-03-11T14:38:25Z,-1430,650,
+20260311,2026-03-11 10:38:28 EDT,f0e54aa0e31afe75de088161e566ae23,basketball_wncaab,WNCAAB,2026-03-11T21:00:00Z,Idaho Vandals,Montana St Bobcats,draftkings,DraftKings,2026-03-11T14:37:56Z,h2h,2026-03-11T14:37:56Z,170,-205,
