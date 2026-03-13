@@ -1,1 +1,4 @@
 snapshot_date,snapshot_timestamp,event_id,sport_key,sport_title,commence_time,home_team,away_team,bookmaker_key,bookmaker_title,bookmaker_last_update,market_key,market_last_update,home_price,away_price,draw_price
+20260313,2026-03-13 10:33:54 EDT,6ea642de0a2fe7ee3e19284ad8f1849a,basketball_wncaab,WNCAAB,2026-03-13T14:02:00Z,Miami (OH) RedHawks,Ohio Bobcats,betrivers,BetRivers,2026-03-13T14:33:48Z,h2h,2026-03-13T14:33:48Z,-10000,1000,
+20260313,2026-03-13 10:33:54 EDT,6ea642de0a2fe7ee3e19284ad8f1849a,basketball_wncaab,WNCAAB,2026-03-13T14:02:00Z,Miami (OH) RedHawks,Ohio Bobcats,betmgm,BetMGM,2026-03-13T14:33:23Z,h2h,2026-03-13T14:33:23Z,-3000,1050,
+20260313,2026-03-13 10:33:54 EDT,6ea642de0a2fe7ee3e19284ad8f1849a,basketball_wncaab,WNCAAB,2026-03-13T14:02:00Z,Miami (OH) RedHawks,Ohio Bobcats,fanduel,FanDuel,2026-03-13T14:33:40Z,h2h,2026-03-13T14:33:40Z,-4500,1100,
